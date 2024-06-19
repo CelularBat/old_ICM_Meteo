@@ -1,0 +1,40 @@
+{
+  "name": "oldmeteo",
+  "version": "1.0.0",
+  "description": "meteo app",
+  "app-name": "oldmeteo",
+  "package-name": "oldmeteo",
+  "project-type": "webview",
+  "icon": "./assets/icon/icon.png",
+  "permission": [
+    "android.permission.INTERNET",
+    "android.permission.WRITE_EXTERNAL_STORAGE",
+    "android.permission.READ_EXTERNAL_STORAGE"
+  ],
+  "main": "main.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js --ignore 'cities.json'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "androidjs": "^2.0.6",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "fs": "^0.0.1-security",
+    "node-fetch": "^2.7.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  },
+  "screenOrientation": "landscape",
+  "theme": {
+    "fullScreen": true
+  }
+}
