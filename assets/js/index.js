@@ -1,3 +1,6 @@
+const __LOCALHOST_PORT = 3000; //backend expressJS listening
+
+
 // SECTION - FAVORITE LIST //
 ////////////////////////////
 
@@ -182,7 +185,7 @@ function await_getxy_res(callback) {
 
 // Replaced with express
 function express_getxy_res(lt, ln, callback) {
-    let url = `http://localhost:4000/getxy?lat=${lt}&lon=${ln}`;
+    let url = `http://localhost:${__LOCALHOST_PORT}/getxy?lat=${lt}&lon=${ln}`;
     fetch(url)
     .then(res => {
         if (!res.ok) {
@@ -302,7 +305,7 @@ function __getpath() {
 function LoadCitiesDB() {
     let p = __getpath();
     console.log(p);
-    let url = `http://localhost:4000/getcities?path=${p}`;
+    let url = `http://localhost:${__LOCALHOST_PORT}/getcities?path=${p}`;
     fetch(url)
     .then(res => {
         if (!res.ok) {
@@ -329,7 +332,7 @@ function LoadCitiesDB() {
 
 function AddCityDB(name, col_str) {
     let p = __getpath();
-    let url = `http://localhost:4000/addcity?path=${p}&name=${name}&col_str=${ encodeURIComponent(col_str) }`;
+    let url = `http://localhost:${__LOCALHOST_PORT}/addcity?path=${p}&name=${name}&col_str=${ encodeURIComponent(col_str) }`;
     console.log("AddCityDB : ", url);
 
     fetch(url)
@@ -351,7 +354,7 @@ function AddCityDB(name, col_str) {
 
 function RemoveCityDB(name, col_str) {
     let p = __getpath();
-    let url = `http://localhost:4000/removecity?path=${p}&name=${name}&col_str=${ encodeURIComponent(col_str) }`;
+    let url = `http://localhost:${__LOCALHOST_PORT}/removecity?path=${p}&name=${name}&col_str=${ encodeURIComponent(col_str) }`;
     console.log("RemoveCityDB : ", url);
 
     fetch(url)

@@ -1,4 +1,4 @@
-const back = require('androidjs').back;
+//const back = require('androidjs').back;
 const fs = require('fs');
 const path = require('path');
 
@@ -21,7 +21,7 @@ app.use(express.urlencoded({
     })) // for parsing application/x-www-form-urlencoded
 
 
-app.listen(4000, function () {
+app.listen(3000, function () {
     console.log('Listening on', JSON.stringify(this.address(), null, 2));
 });
 
@@ -139,10 +139,11 @@ function coordsToXY(N, E, date = "2024052218", cb_res) {
         console.error('Error during fetch:', error);
     });
 }
-
+/*
 back.on("getxy", function (args) {
 
     coordsToXY(args[0], args[1], "2024052218", function (result) {
         back.send("getxy_res", result)
     });
 });
+*/
