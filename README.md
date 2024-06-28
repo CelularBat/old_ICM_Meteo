@@ -9,6 +9,8 @@ This is a lightweight Web/Android client for Polish meteo service: https://old.m
 
 # Web Preview
 
+https://old-icm-meteo.onrender.com/
+
 ## Instruction for Web App
 use web-only branch
 

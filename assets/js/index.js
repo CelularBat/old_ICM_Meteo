@@ -59,8 +59,9 @@ InitUlubioneList();
 const overlay = document.querySelector('#overlay_search');
 const btn_dodaj = document.querySelector('#dodajMiejsce');
 const search_input = document.querySelector('#search_input');
-const centeredDiv = document.querySelector('#centered-div');
+const centeredDiv = document.querySelector('#search-div');
 
+//search location ,return list of cities as JSON
 async function SearchPlace(placeString) {
     try {
         const fetchOptions = {
@@ -94,6 +95,7 @@ async function SearchPlace(placeString) {
     }
 }
 
+// click location and add it to favs
 function li_onClick(name, lat, lon) {
     console.log("click");
     let response = confirm("Dodać: " + name + "?");
@@ -120,6 +122,7 @@ function li_onClick(name, lat, lon) {
     }
 }
 
+// search location - GUI
 async function startSearch() {
     cleanList(); //clean old list
 
@@ -144,10 +147,12 @@ async function startSearch() {
     }
 };
 
+// spawn overlay with search box
 btn_dodaj.addEventListener("click", function () {
     overlay.style.display = "flex";
 });
 
+// clean location list (previous search result)
 function cleanList() {
     let dropdown = document.querySelector('.dropdown');
     if (dropdown) {
@@ -158,10 +163,16 @@ function cleanList() {
         dropdown.remove();
     }
 }
+
+// red dot X button - function assigned in html
 function closeOverlay() {
     overlay.style.display = 'none';
     cleanList();
 }
+
+
+
+
 /////// old front pipe API
 // not used anymore
 /*
@@ -203,6 +214,22 @@ function express_getxy_res(lt, ln, callback) {
         alert(url)
     });
 }
+
+// SECTION - INFO AND SETTINGS //
+////////////////////////////
+
+const btn_info = document.querySelector('#Ustawienia');
+const overlay_info = document.querySelector('#overlay_settings');
+
+btn_info.addEventListener("click",function(){
+	overlay_info.style.display = 'flex';
+});
+
+// red dot X button - function assigned in html
+function closeOverlay2() {
+    overlay_info.style.display = 'none';
+}
+
 
 // SECTION - UPDATE METEOGRAM //
 ////////////////////////////
@@ -251,7 +278,7 @@ function getCurrentDate(callback) {
 }
 
 
-// BUTTONS GUI /////////////
+// SECTION - BUTTONS GUI /////////////
 ////////////////////////////
 
 var _meteo_zoom = false;
@@ -275,6 +302,8 @@ meteo.addEventListener("dblclick", function () {
     }
 
 });
+
+// LEGENDA 
 
 const btn_schowajLegende = document.querySelector('#Schowaj');
 const Legenda = document.querySelector('#Legenda');
@@ -382,7 +411,7 @@ function RemoveCityDB(name, col_str) {
     .catch(err => alert("RemoveCityDB: " + err));
 }
 
-// RUN ON STARTUP
+// SECTION - RUN ON STARTUP
 ////////////////////////////////////////////////////////
 przelacz_legende();
 

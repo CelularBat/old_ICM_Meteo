@@ -11,12 +11,11 @@
 </head>
 
 <body>
-
 <div class="container-fluid nopadding">
 	<div class="row">
 		<div id="LeftMenu" class="col-sm-2">
 			<div class="row h-40 btns_container">
-				<button type="button" class="btn" id="Ustawienia">Ustawienia</button>
+				<button type="button" class="btn" id="Ustawienia">Info</button>
 				<button type="button" class="btn" id="Schowaj">Schowaj legendę</button>
 				<button type="button" class="btn" id="dodajMiejsce">&#128269; Dodaj Miejsce</button>
 			</div>
@@ -40,12 +39,29 @@
 </div>
 
 <div class="overlay" id="overlay_search" style="display:none">
-	<div id="centered-div">
-		<button class="close-button" onclick="closeOverlay()">X</button>
+	<button class="close-button" onclick="closeOverlay()"><div class="close-button-X">X</div></button>
+	<div class="centered-div" id="search-div">
 		
 		<div class="search-container">
 			<input type="text" id="search_input" class="search-input" placeholder="Search...">
 			<button class="search-button" onclick="startSearch()">Szukaj</button>
+		</div>
+	</div>
+</div>
+
+<div class="overlay" id="overlay_settings" style="display:none" onclick="closeOverlay2()">
+	
+	<div class="centered-div">
+		<div class="settings-container">
+			<p>Witaj w kliencie starszej wersji ICM Meteo!</p>
+			<ul>
+				<li>
+					Aby usunąć miejscowość: naciśnij na nią prawym przyciskiem myszy(PC), albo przytrzymaj (Android).
+				</li>
+				<li>
+					 Kliknij dwukrotnie na meteogram, aby go rozciągnąć.
+				</li>
+			</ul>
 		</div>
 	</div>
 </div>
