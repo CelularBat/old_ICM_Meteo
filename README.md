@@ -1,45 +1,43 @@
-This is a lightweight Web/Android client for Polish meteo service: https://old.meteo.pl/ . It serves current meteorograms for defined locations in Poland and neighboarhood countries. 
-It is optimised to download minimal amount of data required to work, so it is lightweight for API. GUI is simple. With extended search option you can add any, even the smallest village to your favorite list.
+# Client for Old ICM Meteo
 
-Instruction:
+This is a lightweight Web/Android client for Polish meteo service: https://old.meteo.pl/.
 
-Double click on meteogram for full screen graph mode. Double click to undo.
-Long press on favorited city to remove it from the list.
+ - It serves actual meteorograms for defined locations in Poland and neighboarhood countries. 
+ - It is optimised to download minimal amount of data required to work. So it is very lightweight for API.
+ -  With extended search option you can add any, even the smallest village to your favorite list.
+ - Using experimental technology to be both Web App and Android App. Created in NodeJS, using [androidJS](https://android-js.github.io/) for compiling to .apk
 
+# Web Preview
 
-Building:
+## Instruction for Web App
+use web-only branch
 
-I've made this APP as my first try to make Android Application in NodeJS. It uses https://android-js.github.io/ for this purpose. 
+    npm install
+    npm run dev
 
-Build instruction:
+## Instruction for Android App
+Use Android branch
 
-Install required packets:
-
-npm install
-
-For Web App:
-npm run dev
-
-For Android Add:
+    npm install
 
 Install androidjs builder:
-npm install -g androidjs-builder
+
+    npm install -g androidjs-builder
 
 Update SDK:
-androidjs update
 
+    androidjs update
 
 Build .apk with
-androidjs build
+
+    androidjs build
+
 or
-androidjs build --release
+
+    androidjs build --release
 
 as described here:
 https://android-js.github.io/docs/packaging_app.html
-
-
-
-Tips I've learned about androidjs:
 
 
 
