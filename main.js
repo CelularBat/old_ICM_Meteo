@@ -46,7 +46,6 @@ app.get("/getcities", (req, res) => {
     let p = req.query.path;
     let file_path = path.join(p, 'cities.json');
     let data = readCities(file_path);
-    console.log(file_path);
     res.json(data);
 });
 
@@ -114,6 +113,8 @@ function removeCityFromFile(file, cname, col_str) {
     });
     fs.writeFileSync(file, JSON.stringify(list), 'utf8');
 }
+
+
 
 function coordsToXY(N, E, date = "2024052218", cb_res) {
     var url = `https://old.meteo.pl/um/php/mgram_search.php?NALL=${N}&EALL=${E}&lang=pl`;

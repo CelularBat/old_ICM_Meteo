@@ -1,4 +1,5 @@
-const __LOCALHOST_PORT = 3000; //backend expressJS listening
+//const __LOCALHOST_PORT = 'http://localhost:3000'; //localhost url only needed for AndroidJS
+const __LOCALHOST_PORT = '';
 
 
 // SECTION - FAVORITE LIST //
@@ -51,14 +52,14 @@ function AddUlubione(nazwa, xy_string) {
 }
 
 InitUlubioneList();
-AddUlubione("dupa", "&row=402&col=178");
+
 
 // SECTION - SEARCH AND ADD NEW CITY//
 ////////////////////////////
-const overlay = document.querySelector('#overlay');
+const overlay = document.querySelector('#overlay_search');
 const btn_dodaj = document.querySelector('#dodajMiejsce');
 const search_input = document.querySelector('#search_input');
-const centeredDiv = document.querySelector('.centered-div');
+const centeredDiv = document.querySelector('#centered-div');
 
 async function SearchPlace(placeString) {
     try {
@@ -185,7 +186,7 @@ function await_getxy_res(callback) {
 
 // Replaced with express
 function express_getxy_res(lt, ln, callback) {
-    let url = `http://localhost:${__LOCALHOST_PORT}/getxy?lat=${lt}&lon=${ln}`;
+    let url = `${__LOCALHOST_PORT}/getxy?lat=${lt}&lon=${ln}`;
     fetch(url)
     .then(res => {
         if (!res.ok) {
@@ -227,8 +228,8 @@ function getCurrentDate(callback) {
         let d2 = d.slice(0, 10);
         d2 = d2.replace(/\-/g, "");
         let t = d.slice(11, 13);
-        tint = parseInt(t);
-        dint = parseInt(d2);
+        var tint = parseInt(t);
+        var dint = parseInt(d2);
 
         if (tint < 6) {
             dint = dint - 1;
@@ -279,13 +280,20 @@ const btn_schowajLegende = document.querySelector('#Schowaj');
 const Legenda = document.querySelector('#Legenda');
 
 var _legenda_visibility_state = true;
-btn_schowajLegende.addEventListener("click", function (event) {
-		_legenda_visibility_state = !_legenda_visibility_state;
+
+function przelacz_legende(){
+			_legenda_visibility_state = !_legenda_visibility_state;
 		if (_legenda_visibility_state) {
 			Legenda.style.display = 'block';
+			btn_schowajLegende.innerText = "Schowaj Legendę";
 		} else {
 			Legenda.style.display = 'none';
-		}			
+			btn_schowajLegende.innerText = "Pokaż Legendę";
+		}	
+}
+
+btn_schowajLegende.addEventListener("click", function (event) {
+		przelacz_legende();
     });
 
 // SECTION - SAVING SETTINGS //
@@ -305,7 +313,7 @@ function __getpath() {
 function LoadCitiesDB() {
     let p = __getpath();
     console.log(p);
-    let url = `http://localhost:${__LOCALHOST_PORT}/getcities?path=${p}`;
+    let url = `${__LOCALHOST_PORT}/getcities?path=${p}`;
     fetch(url)
     .then(res => {
         if (!res.ok) {
@@ -332,7 +340,7 @@ function LoadCitiesDB() {
 
 function AddCityDB(name, col_str) {
     let p = __getpath();
-    let url = `http://localhost:${__LOCALHOST_PORT}/addcity?path=${p}&name=${name}&col_str=${ encodeURIComponent(col_str) }`;
+    let url = `${__LOCALHOST_PORT}/addcity?path=${p}&name=${name}&col_str=${ encodeURIComponent(col_str) }`;
     console.log("AddCityDB : ", url);
 
     fetch(url)
@@ -354,7 +362,7 @@ function AddCityDB(name, col_str) {
 
 function RemoveCityDB(name, col_str) {
     let p = __getpath();
-    let url = `http://localhost:${__LOCALHOST_PORT}/removecity?path=${p}&name=${name}&col_str=${ encodeURIComponent(col_str) }`;
+    let url = `${__LOCALHOST_PORT}/removecity?path=${p}&name=${name}&col_str=${ encodeURIComponent(col_str) }`;
     console.log("RemoveCityDB : ", url);
 
     fetch(url)
@@ -375,9 +383,14 @@ function RemoveCityDB(name, col_str) {
 }
 
 // RUN ON STARTUP
+////////////////////////////////////////////////////////
+przelacz_legende();
 
+// Miejscowość testowa
+AddUlubione("Testowy", "&row=402&col=178"); //test
+
+// ładowanie zapisanych miejsc; kompensuje opóźnienie wystartowania serwera NodeJS na Androidzie
 var __g_cities_loaded = false;
-
 setTimeout(() => {
     LoadCitiesDB();
 }, 1000);

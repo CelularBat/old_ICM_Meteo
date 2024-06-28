@@ -1,8 +1,43 @@
 @media only screen and (min-aspect-ratio: 1/1) {
 
-	
+		
+		body{
+			background: linear-gradient(135deg, #87CEEB, #FFFF99);
+		}
+		
+		
+		#LeftMenu{
+			border: 5px double black;
+				border-radius:25px;
+				overflow:hidden;
+		}
+		
+		.btns_container{
+			padding-left:4%;
+		}
+		
+		.btn{
+			font-size: 3vh;
+			background-color: transparent;
+			margin: 3px auto 3px auto;
+			border: 2px solid #333; /* Border color */
+			border-radius: 25px; /* Rounded border */		
+			color: #333; /* Text color */
+			cursor: pointer;
+			transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+			width:auto;
+			box-shadow: 0 4px 8px rgba(255, 215, 0, 0.5);
+			
+		}
+		
+		.btn:hover {
+			background-color: #333;
+			color: #fff;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		}
+		
 		.nopadding{
-			padding: 0px;
+			padding-left: 2%;
 		}
 
 
@@ -27,7 +62,7 @@
 			z-index:100;
 		}
 
-		#overlay {
+		.overlay {
 			position: fixed;
 			top: 0;
 			left: 0;
@@ -40,7 +75,7 @@
 			z-index: 1000;
 		}
 
-        .centered-div {
+        #centered-div {
             background-color: white;
             padding: 20px;
             border-radius: 10px;
