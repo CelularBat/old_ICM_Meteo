@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OldMeteoClientAPK</title>
+	<link rel="stylesheet" type="text/css" href="../assets/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../assets/bootstrap/css/bootstrap-grid.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/index_landscape.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/index_portrait.css">
+</head>
+
+<body>
+<div class="container-fluid nopadding">
+	<div class="row">
+		<div id="LeftMenu" class="col-sm-2">
+			<div class="row h-40 btns_container">
+				<button type="button" class="btn" id="Ustawienia">Info</button>
+				<button type="button" class="btn" id="Schowaj">Schowaj legendę</button>
+				<button type="button" class="btn" id="dodajMiejsce">&#128269; Dodaj Miejsce</button>
+			</div>
+
+			<div class="row h-60 lista">
+				<div id="ListaUlubionych" class="list-group vw-100 nopadding" role="tablist">
+
+					 
+					  
+				</div>
+
+			</div>
+		</div>
+				
+			
+			<img id="Legenda" class="col-sm-3 img-fluid vh-100 nopadding" src="../assets/leg_256.png">
+				
+
+			<img id="Meteogram" class="container-fluid col-sm-7 img-fluid vh-100 nopadding" src="https://www.meteo.pl/um/metco/mgram_pict.php?ntype=0u&fdate=2024051312&row=400&col=180&lang=pl">
+	</div>		
+</div>
+
+<div class="overlay" id="overlay_search" style="display:none">
+	<button class="close-button" onclick="closeOverlay()"><div class="close-button-X">X</div></button>
+	<div class="centered-div" id="search-div">
+		
+		<div class="search-container">
+			<input type="text" id="search_input" class="search-input" placeholder="Search...">
+			<button class="search-button" onclick="startSearch()">Szukaj</button>
+		</div>
+	</div>
+</div>
+
+<div class="overlay" id="overlay_settings" style="display:none" onclick="closeOverlay2()">
+	
+	<div class="centered-div">
+		<div class="settings-container">
+			<p>Witaj w kliencie starszej wersji ICM Meteo!</p>
+			<ul>
+				<li>
+					Aby usunąć miejscowość: naciśnij na nią prawym przyciskiem myszy(PC), albo przytrzymaj (Android).
+				</li>
+				<li>
+					 Kliknij dwukrotnie na meteogram, aby go rozciągnąć.
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+	
+		<script src="../assets/bootstrap/js/bootstrap.bundle.js" type="application/javascript"></script>
+	<script src="../assets/js/androidjs.js" type="application/javascript"></script>
+	<script src="../assets/js/index.js" type="application/javascript"></script>
+</body>
+</html>
