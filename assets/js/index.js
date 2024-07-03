@@ -1,5 +1,5 @@
 //const __LOCALHOST_PORT = 'http://localhost:3000'; //localhost url only needed for AndroidJS
-const __LOCALHOST_PORT = '';
+const __LOCALHOST_PORT = '';                        //localhost string for web app
 
 
 // SECTION - FAVORITE LIST //
@@ -147,6 +147,13 @@ async function startSearch() {
     }
 };
 
+// search on 'enter' keys
+search_input.addEventListener('keydown',function(event){
+		if (event.key === "Enter"){
+			startSearch();
+		}	
+});
+ 
 // spawn overlay with search box
 btn_dodaj.addEventListener("click", function () {
     overlay.style.display = "flex";

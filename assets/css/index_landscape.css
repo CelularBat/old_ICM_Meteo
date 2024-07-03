@@ -8,8 +8,9 @@
 		
 		#LeftMenu{
 			border: 5px double black;
-				border-radius:25px;
-				overflow:hidden;
+			border-radius:25px;
+			overflow:auto;
+			max-height: 100vh;
 		}
 		
 		.btns_container{
