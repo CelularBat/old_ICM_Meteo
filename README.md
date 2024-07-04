@@ -1,6 +1,7 @@
 # Client for Old ICM Meteo
 
-This is a lightweight Web/Android client for Polish meteo service: https://old.meteo.pl/.
+This is a lightweight client for Polish meteo service: https://old.meteo.pl/. 
+NodeJS Web App or Android (.apk)
 
  - It serves actual meteorograms for defined locations in Poland and neighboarhood countries. 
  - It is optimised to download minimal amount of data required to work. So it is very lightweight for API.
