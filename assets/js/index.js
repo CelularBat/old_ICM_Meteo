@@ -6,7 +6,7 @@ const _$ANDROID_BUILD = false;
 let __LOCALHOST_PORT;
 
 if ( _$ANDROID_BUILD ) {
-	 __LOCALHOST_PORT = 'http://localhost:3000'; //localhost url only needed for AndroidJS
+	 __LOCALHOST_PORT = 'http://localhost:4000'; //localhost url only needed for AndroidJS
 } else {
 	 __LOCALHOST_PORT = '';                      //localhost string for web app (empty)
 }
@@ -432,7 +432,7 @@ function RemoveCityDB(name, col_str) {
 przelacz_legende();
 
 // Miejscowość testowa
-AddUlubione("Testowy", "&row=402&col=178"); //test
+AddUlubione("Poznań, woj. wielkopolskie", "&row=402&col=178"); //test
 
 // ładowanie zapisanych miejsc; kompensuje opóźnienie wystartowania serwera NodeJS na Androidzie
 var __g_cities_loaded = false;
