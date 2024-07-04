@@ -1,4 +1,19 @@
-//const back = require('androidjs').back;
+// IN THIS PLACE YOU MANUALLY SWITCH BUILD PLATFORM OF FILE 
+
+const _$ANDROID_BUILD = false;
+
+////////////////////////////////////////////////////////
+let back;
+let __EXPRESS_PORT;
+
+if (_$ANDROID_BUILD){
+	 back = require('androidjs').back;
+	 __EXPRESS_PORT = 4000;
+} else {
+	 __EXPRESS_PORT = 3000;
+}
+
+
 const fs = require('fs');
 const path = require('path');
 
@@ -21,7 +36,7 @@ app.use(express.urlencoded({
     })) // for parsing application/x-www-form-urlencoded
 
 
-app.listen(3000, function () {
+app.listen(__EXPRESS_PORT, function () {
     console.log('Listening on', JSON.stringify(this.address(), null, 2));
 });
 
@@ -29,10 +44,15 @@ app.set('views', __dirname + '/views');
 app.use("/lib", express.static(__dirname + "/lib"));
 app.use("/assets", express.static(__dirname + "/assets"));
 
+
 // root
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/views/index.html");
 });
+
+
+/// SECTION - METEO API
+/////////////////////////////////
 
 app.get("/getxy", (req, res) => {
 
@@ -42,8 +62,45 @@ app.get("/getxy", (req, res) => {
     });
 });
 
+function coordsToXY(N, E, date = "2024052218", cb_res) {
+    var url = `https://old.meteo.pl/um/php/mgram_search.php?NALL=${N}&EALL=${E}&lang=pl`;
+    fetch(url, {
+        method: 'HEAD',
+        redirect: 'manual'
+    })
+    .then(response => {
+        if (response.status >= 300 && response.status < 400) {
+            let redirectURL = response.headers.get('location');
+            let xyString = redirectURL.match(/&row=\d{2,3}&col=\d{2,3}/);
+            console.log(redirectURL);
+            cb_res(xyString[0]);
+
+        } else {
+            console.log('Response status:', response.status, url);
+            console.log('Response did not redirect:', response);
+            cb_res("err");
+            throw new Error('Response did not redirect, possibly wrong coordinates');
+        }
+    })
+    .catch(error => {
+        console.error('Error during fetch:', error);
+    });
+}
+
+/// SECTION - CONFIG FAVS FILE
+/////////////////////////////////
+
 app.get("/getcities", (req, res) => {
-    let p = req.query.path;
+	
+	// in android build front js file (index.js) sends path to userData directory on android
+	// in web app it must be patched for security reason.
+	var p; 
+	if (_$ANDROID_BUILD ) {
+		p = req.query.path;
+	} else {
+		p = './';
+	}
+	
     let file_path = path.join(p, 'cities.json');
     let data = readCities(file_path);
     res.json(data);
@@ -52,8 +109,14 @@ app.get("/getcities", (req, res) => {
 app.get("/addcity", (req, res) => {
     let err = "";
     try {
-
-        let p = req.query.path;
+		
+        var p; 
+		if (_$ANDROID_BUILD ) {
+			p = req.query.path;
+		} else {
+			p = './';
+		}
+		
         let file_path = path.join(p, 'cities.json');
         let n = req.query.name;
         let str = req.query.col_str;
@@ -72,7 +135,14 @@ app.get("/addcity", (req, res) => {
 app.get("/removecity", (req, res) => {
     let err = "";
     try {
-        let p = req.query.path;
+		
+        var p; 
+		if (_$ANDROID_BUILD ) {
+			p = req.query.path;
+		} else {
+			p = './';
+		}
+		
         let file_path = path.join(p, 'cities.json');
         let n = req.query.name;
         let str = req.query.col_str;
@@ -116,35 +186,5 @@ function removeCityFromFile(file, cname, col_str) {
 
 
 
-function coordsToXY(N, E, date = "2024052218", cb_res) {
-    var url = `https://old.meteo.pl/um/php/mgram_search.php?NALL=${N}&EALL=${E}&lang=pl`;
-    fetch(url, {
-        method: 'HEAD',
-        redirect: 'manual'
-    })
-    .then(response => {
-        if (response.status >= 300 && response.status < 400) {
-            let redirectURL = response.headers.get('location');
-            let xyString = redirectURL.match(/&row=\d{2,3}&col=\d{2,3}/);
-            console.log(redirectURL);
-            cb_res(xyString[0]);
 
-        } else {
-            console.log('Response status:', response.status, url);
-            console.log('Response did not redirect:', response);
-            cb_res("err");
-            throw new Error('Response did not redirect, possibly wrong coordinates');
-        }
-    })
-    .catch(error => {
-        console.error('Error during fetch:', error);
-    });
-}
-/*
-back.on("getxy", function (args) {
 
-    coordsToXY(args[0], args[1], "2024052218", function (result) {
-        back.send("getxy_res", result)
-    });
-});
-*/

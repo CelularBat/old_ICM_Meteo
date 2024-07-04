@@ -1,6 +1,15 @@
-//const __LOCALHOST_PORT = 'http://localhost:3000'; //localhost url only needed for AndroidJS
-const __LOCALHOST_PORT = '';                        //localhost string for web app
+// IN THIS PLACE YOU MANUALLY SWITCH BUILD PLATFORM OF FILE 
 
+const _$ANDROID_BUILD = false;
+
+////////////////////////////////////////////////////////
+let __LOCALHOST_PORT;
+
+if ( _$ANDROID_BUILD ) {
+	 __LOCALHOST_PORT = 'http://localhost:3000'; //localhost url only needed for AndroidJS
+} else {
+	 __LOCALHOST_PORT = '';                      //localhost string for web app (empty)
+}
 
 // SECTION - FAVORITE LIST //
 ////////////////////////////
@@ -102,18 +111,12 @@ function li_onClick(name, lat, lon) {
     if (response) {
         let a = name.split(",");
         let short_name = a[0] + ', ' + a[1];
-        /*
-        front.send("getxy",[ lat, lon ]);
-        await_getxy_res( function(res){
-        AddUlubione(short_name,res);
-        console.log("added: ",short_name,res);
-        });
-         */
         express_getxy_res(lat, lon, function (res) {
             if (res !== "err") {
                 AddUlubione(short_name, res);
                 console.log("added: ", short_name, res);
                 AddCityDB(short_name, res); //safe to file
+				cleanList();
             } else {
                 alert("Przepraszamy, to miejsce jest poza zasięgiem modelu!");
             }
@@ -137,7 +140,7 @@ async function startSearch() {
             let li = document.createElement('li');
             li.textContent = results[idx].name;
             ul.appendChild(li);
-            // funkcja dodająca
+            // add onclick function to each search result
             li.addEventListener("click", () => {
                 li_onClick(results[idx].name, results[idx].lat, results[idx].lon)
             });
@@ -337,18 +340,24 @@ btn_schowajLegende.addEventListener("click", function (event) {
 
 
 function __getpath() {
-    let p = "";
-    try {
-        p = app.getPath('userData');
-    } catch {
-        p = "./"
-    }
-    return p;
+	if ( _$ANDROID_BUILD ) {
+		let p = "";
+		try {
+			p = app.getPath('userData');
+		} catch {
+			p = "./"
+		}
+		return p;
+	} else {
+		return "./";
+	}
+    
+    
 }
 
 function LoadCitiesDB() {
     let p = __getpath();
-    console.log(p);
+	
     let url = `${__LOCALHOST_PORT}/getcities?path=${p}`;
     fetch(url)
     .then(res => {
