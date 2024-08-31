@@ -1,3 +1,5 @@
+<img src="https://i.postimg.cc/XNQskBHB/Screenshot-2024-08-31-at-03-26-55-Old-Meteo-Client-APK.png"></img>
+
 # Client for Old ICM Meteo
 
 This is a lightweight client for Polish meteo service: https://old.meteo.pl/. 
