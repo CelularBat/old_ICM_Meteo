@@ -246,47 +246,74 @@ function closeOverlay2() {
 const meteo = document.querySelector('#Meteogram');
 
 function updateImg(xy_string) {
-    getCurrentDate((err, date) => {
-        if (err) {
-            alert(err);
-            return
-        };
-        let url = "https://www.meteo.pl/um/metco/mgram_pict.php?ntype=0u" + "&fdate=" + date + xy_string + "&lang=pl";
-        meteo.src = url;
-    });
-
+    let date = getCurrentDateString();
+    meteo.src = "https://www.meteo.pl/um/metco/mgram_pict.php?ntype=0u" + "&fdate=" + date + xy_string + "&lang=pl";
 };
 
-function getCurrentDate(callback) {
-    fetch('https://worldtimeapi.org/api/timezone/Poland')
-    .then(response => response.json())
-    .then(function (response) {
-        let d = response.datetime;
-        let d2 = d.slice(0, 10);
-        d2 = d2.replace(/\-/g, "");
-        let t = d.slice(11, 13);
-        var tint = parseInt(t);
-        var dint = parseInt(d2);
+// function getCurrentDate(callback) {
+//     fetch('https://worldtimeapi.org/api/timezone/Poland')
+//     .then(response => response.json())
+//     .then(function (response) {
+//         let d = response.datetime;
+//         let d2 = d.slice(0, 10);
+//         d2 = d2.replace(/\-/g, "");
+//         let t = d.slice(11, 13);
+//         var tint = parseInt(t);
+//         var dint = parseInt(d2);
 
-        if (tint < 6) {
-            dint = dint - 1;
+//         if (tint < 6) {
+//             dint = dint - 1;
+//             t = '12';
+//         } else if (tint < 12) {
+//             dint = dint - 1;
+//             t = '18';
+//         } else if (tint < 18) {
+//             t = '00';
+//         } else {
+//             t = '06';
+//         }
+
+//         let data_str = dint + t;
+//         console.log(data_str);
+//         callback(null, data_str);
+//     })
+//     .catch(error => callback(error))
+// }
+
+
+function getCurrentDateString() {
+    try {
+        let now = new Date();
+        
+        let year = now.getFullYear();
+        let month = String(now.getMonth() + 1).padStart(2, '0'); 
+        let day = String(now.getDate()).padStart(2, '0'); 
+        let hour = now.getHours(); 
+
+        let dint = parseInt(`${year}${month}${day}`); 
+
+       
+        let t;
+        if (hour < 6) {
+            dint -= 1; 
             t = '12';
-        } else if (tint < 12) {
-            dint = dint - 1;
+        } else if (hour < 12) {
+            dint -= 1;
             t = '18';
-        } else if (tint < 18) {
+        } else if (hour < 18) {
             t = '00';
         } else {
             t = '06';
         }
 
-        let data_str = dint + t;
-        console.log(data_str);
-        callback(null, data_str);
-    })
-    .catch(error => callback(error))
+        return `${dint}${t}`;
+        
+        
+    } catch (error) {
+        console.error(error)
+        throw new Error(error);
+    }
 }
-
 
 // SECTION - BUTTONS GUI /////////////
 ////////////////////////////
