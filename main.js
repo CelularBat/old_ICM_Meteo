@@ -17,8 +17,7 @@ if (_$ANDROID_BUILD){
 const fs = require('fs');
 const path = require('path');
 
-const fetch = require('node-fetch'); // This is required for lower version of Node, which is in AndroidJS
-
+const fetch = require('node-fetch'); // This is required for lower version of Node, which is packed inside AndroidJS
 
 const express = require("express");
 const app = express();
